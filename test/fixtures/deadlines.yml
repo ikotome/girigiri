@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  event: one
+  deadline_at: 2026-03-14
+  label: MyString
+  changed_at: 2026-03-14 21:34:44
+  deadline_at_prev: 2026-03-14
+
+two:
+  event: two
+  deadline_at: 2026-03-14
+  label: MyString
+  changed_at: 2026-03-14 21:34:44
+  deadline_at_prev: 2026-03-14

@@ -16,7 +16,7 @@ services:
     depends_on:
       - db
     volumes:
-      - .:/girigiri
+      - .:/rails
       - bundle_cache:/usr/local/bundle
 
 volumes:
