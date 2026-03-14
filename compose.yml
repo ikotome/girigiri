@@ -1,26 +1,24 @@
 services:
   db:
-    image: postgres
+    image: postgres:16
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     volumes:
-      - ./tmp/db:/var/lib/postgresql/data
-    networks:
-      - db-tier
+      - db_data:/var/lib/postgresql/data
   app:
     build: .
     command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
+    environment:
+      RAILS_ENV: development
     ports:
       - "3000:3000"
     depends_on:
       - db
     volumes:
       - .:/girigiri
-    networks:
-      - app-tier
-      - db-tier
+      - bundle_cache:/usr/local/bundle
 
-networks:
-  app-tier: {}
-  db-tier: {}
+volumes:
+  bundle_cache:
+  db_data:
