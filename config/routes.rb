@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   get "events/new"
   get "events/create"
   get "deadlines/index"
+  post "/analyze_url", to: "events#analyze_url"
   root "deadlines#index"
-  resources :events, only: [:new, :create]
+  resources :events, only: [:new, :create, :edit, :update]
   resources :deadlines, only: [:index]
   resources :entries, only: [] do
     member do

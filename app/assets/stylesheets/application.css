@@ -18,6 +18,10 @@
   --line: rgba(255, 255, 255, 0.62);
   --shadow: 0 30px 90px -35px rgba(15, 23, 42, 0.55);
   --hard-shadow: 8px 8px 0 rgba(15, 23, 42, 0.9);
+  --radius-panel: 32px;
+  --radius-card: 28px;
+  --radius-soft: 24px;
+  --radius-pill: 999px;
   --display-font: "Arial Black", "Trebuchet MS", "Avenir Next Condensed", sans-serif;
   --body-font: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -64,17 +68,20 @@ body {
 .signage-layout {
   min-height: 100vh;
   color: #fff;
-  background: radial-gradient(circle at top, #67e8f9 0%, #0f172a 28%, #020617 72%);
+  background:
+    radial-gradient(circle at 12% 18%, rgba(34, 211, 238, 0.24) 0%, transparent 26%),
+    radial-gradient(circle at 82% 18%, rgba(217, 70, 239, 0.2) 0%, transparent 28%),
+    linear-gradient(155deg, #030712 0%, #111827 34%, #0f172a 62%, #020617 100%);
 }
 
 .signage-layout__grid {
-  background-size: 88px 88px;
-  opacity: 0.28;
+  background-size: 96px 96px;
+  opacity: 0.18;
 }
 
 .app-shell__orb {
   position: absolute;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   filter: blur(56px);
 }
 
@@ -178,7 +185,7 @@ body {
 
 .dashboard-stat {
   padding: 20px;
-  border-radius: 28px;
+  border-radius: var(--radius-card);
   background: rgba(255, 255, 255, 0.94);
   box-shadow: 6px 6px 0 rgba(255, 255, 255, 0.72);
 }
@@ -216,7 +223,7 @@ body {
   justify-content: center;
   min-height: 50px;
   padding: 0 24px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   border: 1px solid #0f172a;
   font-size: 0.85rem;
   font-weight: 900;
@@ -262,7 +269,7 @@ body {
 .deadline-group__dot {
   width: 12px;
   height: 12px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
 }
 
 .deadline-group__title {
@@ -286,7 +293,7 @@ body {
   min-width: 68px;
   min-height: 34px;
   padding: 0 14px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   font-size: 0.82rem;
   font-weight: 800;
   line-height: 1;
@@ -302,7 +309,7 @@ body {
 
 .deadline-card {
   padding: 20px;
-  border-radius: 28px;
+  border-radius: var(--radius-card);
   background: rgba(248, 250, 252, 0.82);
   border-color: rgba(255, 255, 255, 0.72);
   box-shadow: 0 20px 70px -36px rgba(15, 23, 42, 0.5);
@@ -358,7 +365,7 @@ body {
   align-items: center;
   min-height: 34px;
   padding: 0 14px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   line-height: 1;
   text-decoration: none;
 }
@@ -398,7 +405,7 @@ body {
 
 .deadline-card__meta > * {
   padding: 6px 12px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: rgba(255, 255, 255, 0.96);
   color: #1e293b;
 }
@@ -406,7 +413,7 @@ body {
 .deadline-card__count {
   min-width: 132px;
   padding: 18px 20px;
-  border-radius: 24px;
+  border-radius: var(--radius-soft);
   box-shadow: var(--hard-shadow);
   background: #0f172a !important;
   color: #fff !important;
@@ -440,7 +447,7 @@ body {
 .deadline-status-chip {
   min-height: 38px;
   padding: 8px 14px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   text-decoration: none;
   background: rgba(255, 255, 255, 0.95);
   color: #334155;
@@ -449,9 +456,9 @@ body {
 
 .deadline-status-button {
   appearance: none;
-  min-height: 34px;
-  padding: 0 12px;
-  border-radius: 999px;
+  min-height: 38px;
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
   border: 1px solid rgba(148, 163, 184, 0.35);
   background: rgba(255, 255, 255, 0.92);
   color: #475569;
@@ -513,7 +520,7 @@ body {
 
 .new-event-feature {
   padding: 18px;
-  border-radius: 24px;
+  border-radius: var(--radius-soft);
 }
 
 .new-event-form {
@@ -541,13 +548,47 @@ body {
   min-height: 54px;
   padding: 0 16px;
   border: 1px solid rgba(148, 163, 184, 0.38);
-  border-radius: 20px;
+  border-radius: var(--radius-soft);
   background: rgba(255, 255, 255, 0.9);
 }
 
 .new-event-input:focus {
   outline: 3px solid rgba(125, 211, 252, 0.3);
   outline-offset: 2px;
+}
+
+.new-event-url-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.new-event-url-row .new-event-input {
+  flex: 1;
+}
+
+.new-event-analyze-button {
+  appearance: none;
+  min-height: 54px;
+  padding: 0 22px;
+  border: 1px solid #0f172a;
+  border-radius: var(--radius-pill);
+  background: #0f172a;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.18s ease, background-color 0.18s ease, opacity 0.18s ease;
+}
+
+.new-event-analyze-button:hover {
+  transform: translateY(-1px);
+  background: #1e293b;
+}
+
+.new-event-analyze-button:disabled {
+  cursor: wait;
+  opacity: 0.72;
 }
 
 .new-event-back {
@@ -567,48 +608,305 @@ body {
 .signage-page__hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 24px;
-  align-items: end;
+  gap: 28px;
+  align-items: start;
 }
 
-.signage-page__summary {
-  background: rgba(255, 255, 255, 0.1);
+.signage-page__noise {
+  opacity: 0.06;
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.9) 0.7px, transparent 0.7px),
+    radial-gradient(rgba(255, 255, 255, 0.35) 0.7px, transparent 0.7px);
+  background-position: 0 0, 10px 10px;
+  background-size: 20px 20px;
 }
 
-.signage-page__list {
-  display: grid;
-  gap: 16px;
-  margin-top: 40px;
+.signage-calendar-page {
+  color: #1f2937;
 }
 
-.signage-card {
-  padding: 24px;
-  background: rgba(255, 255, 255, 0.1);
+.signage-hero {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-panel);
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
 }
 
-.signage-card > .flex {
+.signage-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #22d3ee, #ec4899, #fbbf24);
+}
+
+.signage-hero__inner {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 20px;
-  align-items: center;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.9fr);
+  gap: 24px;
+  padding: 22px 24px;
 }
 
-.signage-card .text-3xl,
-.signage-card .text-4xl,
-.signage-page__summary .text-5xl {
+.signage-hero__glow {
+  position: absolute;
+  border-radius: var(--radius-pill);
+  filter: blur(48px);
+}
+
+.signage-hero__glow--left {
+  left: -3rem;
+  top: 1rem;
+  width: 12rem;
+  height: 12rem;
+  background: rgba(34, 211, 238, 0.26);
+}
+
+.signage-hero__glow--right {
+  right: -2rem;
+  bottom: -2rem;
+  width: 14rem;
+  height: 14rem;
+  background: rgba(244, 114, 182, 0.2);
+}
+
+.signage-hero__sticker {
+  display: inline-flex;
+  transform: rotate(-3deg);
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: #020617;
+  color: #67e8f9;
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  box-shadow: 4px 4px 0 rgba(255, 255, 255, 0.5);
+}
+
+.signage-hero__title {
+  margin: 12px 0 0;
   font-family: var(--display-font);
+  font-size: clamp(2.2rem, 4.8vw, 3.9rem);
+  line-height: 0.94;
+  letter-spacing: -0.06em;
+  color: #0f172a;
+}
+
+.signage-hero__lead {
+  margin: 10px 0 0;
+  max-width: 30rem;
+  color: #475569;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.signage-hero__actions {
+  margin-top: 12px;
+}
+
+.signage-hero__back {
+  min-height: 42px;
+  padding: 0 18px;
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+}
+
+.signage-hero__stats {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.signage-hero__stats .dashboard-stat {
+  padding: 16px 18px;
+}
+
+.signage-hero__stats .dashboard-stat > div:first-child {
+  font-size: 0.72rem;
+}
+
+.signage-hero__stats .dashboard-stat > div:nth-child(2) {
+  margin-top: 6px;
+  font-size: 1.7rem;
+}
+
+.signage-calendar {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: var(--radius-panel);
+  background: rgba(255, 255, 255, 0.74);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.signage-calendar__header {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.signage-calendar__header-cell {
+  padding: 16px 10px 14px;
+  border-right: 1px solid rgba(255, 255, 255, 0.28);
+  text-align: center;
+  color: #fff;
+}
+
+.signage-calendar__header-cell:last-child {
+  border-right: 0;
+}
+
+.signage-calendar__weekday {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.signage-calendar__date {
+  margin-top: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.signage-calendar__header-cell.is-sunday .signage-calendar__weekday,
+.signage-calendar__header-cell.is-sunday .signage-calendar__date {
+  color: #f87171;
+}
+
+.signage-calendar__header-cell.is-saturday .signage-calendar__weekday,
+.signage-calendar__header-cell.is-saturday .signage-calendar__date {
+  color: #60a5fa;
+}
+
+.signage-calendar__body {
+  position: relative;
+  padding: 20px 0 24px;
+  background:
+    linear-gradient(90deg, rgba(148, 163, 184, 0.26) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 252, 0.94));
+  background-size: calc(100% / 7) 100%, 100% 100%;
+  background-position: 0 0, 0 0;
+}
+
+.signage-calendar__body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+
+.signage-calendar__row {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: center;
+  min-height: 58px;
+  padding: 6px 0;
+}
+
+.signage-calendar__event {
+  margin: 0 8px;
+  min-height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  color: #2563eb;
+  font-size: clamp(1rem, 2vw, 1.12rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-align: center;
+  box-shadow: 0 14px 30px -22px rgba(15, 23, 42, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.signage-calendar__event.is-today,
+.signage-calendar__event.is-soon {
+  background: linear-gradient(90deg, rgba(254, 205, 211, 0.96), rgba(255, 228, 230, 0.92));
+}
+
+.signage-calendar__event.is-week,
+.signage-calendar__event.is-later {
+  background: linear-gradient(90deg, rgba(187, 247, 208, 0.96), rgba(220, 252, 231, 0.92));
+}
+
+.signage-calendar__event.is-today {
+  box-shadow: 0 18px 34px -22px rgba(244, 63, 94, 0.42);
+}
+
+.signage-calendar__event.is-soon {
+  box-shadow: 0 18px 34px -22px rgba(249, 115, 22, 0.36);
+}
+
+.signage-calendar__event.is-week {
+  box-shadow: 0 18px 34px -22px rgba(34, 197, 94, 0.28);
+}
+
+.signage-calendar__event.is-later {
+  background: linear-gradient(90deg, rgba(224, 231, 255, 0.94), rgba(243, 232, 255, 0.92));
+  box-shadow: 0 18px 34px -22px rgba(139, 92, 246, 0.24);
+}
+
+.signage-calendar__event-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.signage-calendar__meta {
+  justify-self: end;
+  margin-right: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  color: #4b5563;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.signage-calendar__meta strong {
+  color: #111827;
+  font-size: 0.9rem;
+  font-family: var(--display-font);
+}
+
+.signage-calendar__empty {
+  position: relative;
+  z-index: 1;
+  padding: 64px 24px;
+  text-align: center;
+  color: #4b5563;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 @media (max-width: 960px) {
   .dashboard-hero > .relative,
   .new-event-grid,
   .signage-page__hero,
-  .signage-card > .flex,
   .deadline-card > .flex,
   .dashboard-card-grid {
     grid-template-columns: 1fr;
+  }
+
+  .signage-hero__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .signage-hero__stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .dashboard-stats,
@@ -643,8 +941,39 @@ body {
     padding: 20px;
   }
 
+  .new-event-url-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
   .dashboard-hero__title,
   .new-event-hero__title {
     font-size: 2.7rem;
+  }
+
+  .signage-hero__inner {
+    padding: 18px;
+  }
+
+  .signage-hero__stats {
+    grid-template-columns: 1fr;
+  }
+
+  .signage-hero__title {
+    font-size: 2.4rem;
+  }
+
+  .signage-calendar {
+    overflow-x: auto;
+  }
+
+  .signage-calendar__header,
+  .signage-calendar__body,
+  .signage-calendar__row {
+    min-width: 720px;
+  }
+
+  .signage-calendar__event {
+    font-size: 0.95rem;
   }
 }

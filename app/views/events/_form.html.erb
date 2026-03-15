@@ -1,0 +1,128 @@
+<div class="new-event-page mx-auto max-w-5xl">
+  <div class="new-event-grid grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+    <section class="new-event-hero relative overflow-hidden rounded-[2rem] border border-white/50 bg-slate-950 px-6 py-8 text-white shadow-[0_30px_90px_-35px_rgba(15,23,42,0.7)] sm:px-8">
+      <div class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-amber-300"></div>
+      <div class="absolute inset-4 rounded-[1.5rem] border border-white/10"></div>
+      <div class="absolute -left-10 top-10 h-36 w-36 rounded-full bg-cyan-400/25 blur-3xl"></div>
+      <div class="absolute -right-10 bottom-0 h-40 w-40 rounded-full bg-fuchsia-500/25 blur-3xl"></div>
+
+      <div class="relative">
+        <div class="dashboard-sticker inline-flex rotate-[-3deg] rounded-full border border-white/30 bg-cyan-300 px-4 py-1 text-[10px] font-black uppercase tracking-[0.4em] text-slate-950 shadow-[4px_4px_0_0_rgba(255,255,255,0.2)]">
+          <%= hero_badge %>
+        </div>
+        <h1 class="new-event-hero__title mt-5 font-['Arial_Black','Trebuchet_MS',sans-serif] text-5xl font-black uppercase tracking-[-0.04em] sm:text-6xl"><%= heading %></h1>
+        <p class="new-event-hero__lead mt-4 max-w-md text-sm leading-6 text-slate-300">
+          <%= hero_text %>
+        </p>
+
+        <div class="new-event-features mt-8 grid gap-3 sm:grid-cols-2">
+          <div class="new-event-feature border border-white/15 bg-white/10 p-4 backdrop-blur">
+            <div class="text-xs font-bold uppercase tracking-[0.3em] text-slate-300">Fast</div>
+            <div class="mt-2 text-lg font-black">必要項目だけ</div>
+          </div>
+          <div class="new-event-feature border border-white/15 bg-white/10 p-4 backdrop-blur">
+            <div class="text-xs font-bold uppercase tracking-[0.3em] text-slate-300">Visible</div>
+            <div class="mt-2 text-lg font-black">保存後すぐ一覧へ</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="new-event-form rounded-[2rem] border border-white/50 bg-white/75 p-6 shadow-[0_30px_90px_-35px_rgba(15,23,42,0.55)] backdrop-blur-xl sm:p-8">
+      <%= form_with model: event do |f| %>
+        <div class="space-y-5">
+          <div>
+            <%= f.label :title, "タイトル", class: "mb-2 block text-sm font-black uppercase tracking-[0.2em] text-slate-500" %>
+            <%= f.text_field :title, class: "new-event-input w-full border border-slate-200 bg-white/90 px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-300 focus:border-fuchsia-400 focus:ring-4 focus:ring-fuchsia-200", placeholder: "Google STEP 応募" %>
+          </div>
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+              <%= f.label :category, "カテゴリ", class: "mb-2 block text-sm font-black uppercase tracking-[0.2em] text-slate-500" %>
+              <%= f.select :category, Event.categories.keys.map { |k| [k, k] }, {}, class: "new-event-input w-full border border-slate-200 bg-white/90 px-4 py-3 text-slate-900 outline-none transition focus:border-cyan-400 focus:ring-4 focus:ring-cyan-200" %>
+            </div>
+
+            <div>
+              <%= f.label :organizer, "主催者", class: "mb-2 block text-sm font-black uppercase tracking-[0.2em] text-slate-500" %>
+              <%= f.text_field :organizer, class: "new-event-input w-full border border-slate-200 bg-white/90 px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-300 focus:border-cyan-400 focus:ring-4 focus:ring-cyan-200", placeholder: "Google" %>
+            </div>
+          </div>
+
+          <div>
+            <%= f.label :source_url, "URL", class: "mb-2 block text-sm font-black uppercase tracking-[0.2em] text-slate-500" %>
+            <div class="new-event-url-row">
+              <%= f.url_field :source_url, id: "source_url", class: "new-event-input w-full border border-slate-200 bg-white/90 px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-300 focus:border-amber-400 focus:ring-4 focus:ring-amber-200", placeholder: "https://example.com" %>
+              <button type="button" id="analyze_btn" class="new-event-analyze-button">
+                AI解析
+              </button>
+            </div>
+          </div>
+
+          <%= fields_for :deadline, deadline do |df| %>
+            <div>
+              <%= df.label :deadline_at, "締切日", class: "mb-2 block text-sm font-black uppercase tracking-[0.2em] text-slate-500" %>
+              <%= df.date_field :deadline_at, class: "new-event-input w-full border border-slate-200 bg-white/90 px-4 py-3 text-slate-900 outline-none transition focus:border-rose-400 focus:ring-4 focus:ring-rose-200" %>
+            </div>
+          <% end %>
+
+          <div class="pt-2">
+            <%= f.submit submit_label, class: "dashboard-button dashboard-button--primary w-full cursor-pointer rounded-full border border-slate-900 bg-slate-950 px-5 py-3 text-sm font-black uppercase tracking-[0.2em] text-white transition hover:-translate-y-0.5 hover:bg-slate-800" %>
+          </div>
+        </div>
+        <script>
+          (() => {
+            const attachAnalyzer = () => {
+              const btn = document.getElementById("analyze_btn");
+              const urlInput = document.getElementById("source_url");
+              if (!btn || !urlInput || btn.dataset.bound === "true") return;
+
+              btn.dataset.bound = "true";
+              btn.addEventListener("click", async () => {
+                const url = urlInput.value;
+                if (!url) {
+                  alert("URLを入力してください");
+                  return;
+                }
+
+                btn.textContent = "解析中...";
+                btn.disabled = true;
+
+                try {
+                  const res = await fetch("/analyze_url", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify({ url })
+                  });
+
+                  const data = await res.json();
+
+                  if (data.error) {
+                    alert(data.error);
+                  } else {
+                    if (data.title) document.querySelector('[name="event[title]"]').value = data.title;
+                    if (data.category) document.querySelector('[name="event[category]"]').value = data.category;
+                    if (data.organizer) document.querySelector('[name="event[organizer]"]').value = data.organizer;
+                    if (data.deadline_at) document.querySelector('[name="deadline[deadline_at]"]').value = data.deadline_at;
+                  }
+                } catch (error) {
+                  alert("エラーが発生しました");
+                } finally {
+                  btn.textContent = "AI解析";
+                  btn.disabled = false;
+                }
+              });
+            };
+
+            document.addEventListener("turbo:load", attachAnalyzer, { once: true });
+            attachAnalyzer();
+          })();
+        </script>
+      <% end %>
+
+      <%= link_to "一覧に戻る", deadlines_path, class: "dashboard-button dashboard-button--secondary new-event-back mt-5 inline-flex items-center px-5 py-3 text-sm font-black uppercase tracking-[0.12em] text-slate-700 transition hover:-translate-y-0.5 hover:bg-white" %>
+    </section>
+  </div>
+</div>
