@@ -18,13 +18,18 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body class="app-shell">
+    <div class="app-shell__bg" aria-hidden="true">
+      <div class="app-shell__grid"></div>
+      <div class="app-shell__orb app-shell__orb--left"></div>
+      <div class="app-shell__orb app-shell__orb--right"></div>
+      <div class="app-shell__orb app-shell__orb--bottom"></div>
+    </div>
+    <main class="app-shell__main">
       <%= yield %>
     </main>
   </body>

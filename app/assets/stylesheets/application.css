@@ -8,3 +8,643 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+:root {
+  --app-bg: radial-gradient(circle at top, #fde68a 0%, #f9a8d4 30%, #60a5fa 64%, #020617 100%);
+  --panel: rgba(255, 255, 255, 0.86);
+  --panel-strong: rgba(255, 255, 255, 0.94);
+  --ink: #0f172a;
+  --muted: #475569;
+  --line: rgba(255, 255, 255, 0.62);
+  --shadow: 0 30px 90px -35px rgba(15, 23, 42, 0.55);
+  --hard-shadow: 8px 8px 0 rgba(15, 23, 42, 0.9);
+  --display-font: "Arial Black", "Trebuchet MS", "Avenir Next Condensed", sans-serif;
+  --body-font: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  font-family: var(--body-font);
+}
+
+body {
+  color: var(--ink);
+}
+
+.app-shell {
+  position: relative;
+  min-height: 100vh;
+  background: var(--app-bg);
+}
+
+.app-shell__bg,
+.signage-layout__bg {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+
+.app-shell__grid,
+.signage-layout__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 72px 72px;
+  opacity: 0.4;
+}
+
+.signage-layout {
+  min-height: 100vh;
+  color: #fff;
+  background: radial-gradient(circle at top, #67e8f9 0%, #0f172a 28%, #020617 72%);
+}
+
+.signage-layout__grid {
+  background-size: 88px 88px;
+  opacity: 0.28;
+}
+
+.app-shell__orb {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(56px);
+}
+
+.app-shell__orb--left {
+  left: -4rem;
+  top: 5rem;
+  width: 14rem;
+  height: 14rem;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.app-shell__orb--right {
+  right: 0;
+  top: 0;
+  width: 18rem;
+  height: 18rem;
+  background: rgba(103, 232, 249, 0.28);
+}
+
+.app-shell__orb--bottom {
+  left: 33%;
+  bottom: 0;
+  width: 16rem;
+  height: 16rem;
+  background: rgba(232, 121, 249, 0.2);
+}
+
+.app-shell__main {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 1280px);
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+}
+
+.dashboard-page,
+.new-event-page,
+.signage-page {
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-hero,
+.new-event-hero,
+.new-event-form,
+.dashboard-empty,
+.signage-page__summary,
+.signage-card {
+  border: 1px solid var(--line);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.dashboard-hero,
+.new-event-form,
+.dashboard-empty {
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.dashboard-hero {
+  padding: 28px;
+}
+
+.dashboard-hero > .relative,
+.deadline-card,
+.signage-card,
+.new-event-hero > .relative {
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-hero__title,
+.new-event-hero__title,
+.signage-page__hero > div:first-child > div:nth-child(2),
+.deadline-card h3,
+.dashboard-empty h2 {
+  font-family: var(--display-font);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+}
+
+.dashboard-hero__title {
+  margin: 4px 0 0;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  line-height: 0.94;
+}
+
+.dashboard-hero > .relative {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr);
+  gap: 24px;
+  align-items: end;
+}
+
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.dashboard-stat {
+  padding: 20px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 6px 6px 0 rgba(255, 255, 255, 0.72);
+}
+
+.dashboard-stat--dark {
+  color: #fff;
+  background: #020617;
+  box-shadow: var(--hard-shadow);
+}
+
+.dashboard-stat > div:first-child {
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.dashboard-stat > div:nth-child(2) {
+  margin-top: 8px;
+  font-family: var(--display-font);
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+.dashboard-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.dashboard-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0 24px;
+  border-radius: 999px;
+  border: 1px solid #0f172a;
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+
+.dashboard-button:hover {
+  transform: translateY(-2px);
+}
+
+.dashboard-button--primary {
+  color: #fff;
+  background: #020617;
+}
+
+.dashboard-button--secondary {
+  color: #334155;
+  border-color: rgba(148, 163, 184, 0.6);
+  background: rgba(255, 255, 255, 0.84);
+}
+
+.dashboard-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.deadline-group {
+  padding: 4px 0 2px;
+}
+
+.deadline-group__header {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.deadline-group__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+}
+
+.deadline-group__title {
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.96);
+  text-shadow: 0 1px 2px rgba(15, 23, 42, 0.2);
+}
+
+.deadline-group__line {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.deadline-group__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 68px;
+  min-height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.92);
+  color: #0f172a;
+}
+
+.deadline-group--today .deadline-group__count { box-shadow: inset 0 0 0 2px rgba(251, 113, 133, 0.28); }
+.deadline-group--soon .deadline-group__count { box-shadow: inset 0 0 0 2px rgba(251, 146, 60, 0.28); }
+.deadline-group--week .deadline-group__count { box-shadow: inset 0 0 0 2px rgba(56, 189, 248, 0.28); }
+.deadline-group--later .deadline-group__count { box-shadow: inset 0 0 0 2px rgba(167, 139, 250, 0.28); }
+
+.deadline-card {
+  padding: 20px;
+  border-radius: 28px;
+  background: rgba(248, 250, 252, 0.82);
+  border-color: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 20px 70px -36px rgba(15, 23, 42, 0.5);
+}
+
+.deadline-card--today {
+  background: linear-gradient(135deg, rgba(255, 241, 242, 0.95), rgba(255, 255, 255, 0.84));
+}
+
+.deadline-card--soon {
+  background: linear-gradient(135deg, rgba(255, 247, 237, 0.95), rgba(255, 255, 255, 0.84));
+}
+
+.deadline-card--week {
+  background: linear-gradient(135deg, rgba(240, 249, 255, 0.95), rgba(255, 255, 255, 0.84));
+}
+
+.deadline-card--later {
+  background: linear-gradient(135deg, rgba(245, 243, 255, 0.95), rgba(255, 255, 255, 0.82));
+}
+
+.deadline-card > .flex {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: start;
+}
+
+.deadline-card h3 {
+  margin: 16px 0 0;
+  font-size: 2rem;
+  line-height: 1.05;
+  color: #0f172a;
+}
+
+.deadline-card .text-slate-500,
+.deadline-card .text-slate-600,
+.deadline-card .text-slate-700 {
+  color: #334155 !important;
+}
+
+.deadline-card .text-slate-300,
+.deadline-card .text-slate-400 {
+  color: #475569 !important;
+}
+
+.deadline-card__category,
+.deadline-card__organizer,
+.deadline-card__meta-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 14px;
+  border-radius: 999px;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.deadline-card__category {
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: capitalize;
+  color: #0f172a !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+}
+
+.deadline-card__organizer {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #334155 !important;
+  background: rgba(241, 245, 249, 0.96) !important;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+}
+
+.deadline-card__meta-pill {
+  font-size: 0.82rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.94);
+  color: #1e293b;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+.deadline-card__meta {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.deadline-card__meta > * {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.96);
+  color: #1e293b;
+}
+
+.deadline-card__count {
+  min-width: 132px;
+  padding: 18px 20px;
+  border-radius: 24px;
+  box-shadow: var(--hard-shadow);
+  background: #0f172a !important;
+  color: #fff !important;
+}
+
+.deadline-card__count > div:nth-child(2) {
+  font-family: var(--display-font);
+}
+
+.deadline-card__status {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 16px;
+  margin-top: 20px;
+  border-top: 1px solid rgba(148, 163, 184, 0.36);
+}
+
+.deadline-card__status-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.deadline-card__status-actions form {
+  margin: 0;
+}
+
+.deadline-status-chip {
+  min-height: 38px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.95);
+  color: #334155;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+}
+
+.deadline-status-button {
+  appearance: none;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(255, 255, 255, 0.92);
+  color: #475569;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
+}
+
+.deadline-status-button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(100, 116, 139, 0.72);
+  background: rgba(255, 255, 255, 1);
+  color: #1e293b;
+}
+
+.dashboard-empty {
+  text-align: center;
+  padding: 80px 24px;
+}
+
+.dashboard-empty h2 {
+  margin-top: 16px;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  text-transform: uppercase;
+}
+
+.new-event-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+  gap: 24px;
+}
+
+.new-event-hero {
+  padding: 32px;
+  color: #fff;
+  background: rgba(2, 6, 23, 0.92);
+  box-shadow: 0 30px 90px -35px rgba(15, 23, 42, 0.7);
+}
+
+.new-event-hero__title {
+  margin: 20px 0 0;
+  font-size: clamp(3rem, 7vw, 5rem);
+  line-height: 0.94;
+  text-transform: uppercase;
+}
+
+.new-event-hero__lead {
+  color: rgba(226, 232, 240, 0.92);
+}
+
+.new-event-features {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.new-event-feature {
+  padding: 18px;
+  border-radius: 24px;
+}
+
+.new-event-form {
+  padding: 28px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.new-event-form form > .space-y-5 {
+  display: grid;
+  gap: 20px;
+}
+
+.new-event-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.new-event-input {
+  width: 100%;
+  min-height: 54px;
+  padding: 0 16px;
+  border: 1px solid rgba(148, 163, 184, 0.38);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.new-event-input:focus {
+  outline: 3px solid rgba(125, 211, 252, 0.3);
+  outline-offset: 2px;
+}
+
+.new-event-back {
+  margin-top: 20px;
+}
+
+.signage-page {
+  padding: 40px 24px;
+  color: #fff;
+}
+
+.signage-page__inner {
+  width: min(100%, 1280px);
+  margin: 0 auto;
+}
+
+.signage-page__hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: end;
+}
+
+.signage-page__summary {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.signage-page__list {
+  display: grid;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.signage-card {
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.signage-card > .flex {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 20px;
+  align-items: center;
+}
+
+.signage-card .text-3xl,
+.signage-card .text-4xl,
+.signage-page__summary .text-5xl {
+  font-family: var(--display-font);
+}
+
+@media (max-width: 960px) {
+  .dashboard-hero > .relative,
+  .new-event-grid,
+  .signage-page__hero,
+  .signage-card > .flex,
+  .deadline-card > .flex,
+  .dashboard-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-stats,
+  .new-event-features {
+    grid-template-columns: 1fr;
+  }
+
+  .deadline-group__header {
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .deadline-group__line {
+    display: none;
+  }
+
+  .deadline-card__count {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-shell__main,
+  .signage-page {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .dashboard-hero,
+  .new-event-hero,
+  .new-event-form,
+  .signage-card {
+    padding: 20px;
+  }
+
+  .dashboard-hero__title,
+  .new-event-hero__title {
+    font-size: 2.7rem;
+  }
+}
